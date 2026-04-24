@@ -1,0 +1,392 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  MODERATOR
+  ADMIN
+  SUSPENDED
+  BANNED
+}
+
+enum PledgeStatus {
+  ACTIVE
+  PENDING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id                    String    @id @default(cuid())
+  name                  String?
+  email                 String?   @unique
+  emailVerified         DateTime?
+  password              String?
+  image                 String?
+  createdAt             DateTime  @default(now())
+  role                  UserRole  @default(USER)
+  
+  // Stripe Connect fields (for receiving payouts as server owner)
+  stripeAccountId       String?   @unique
+  stripeAccountStatus   String?   // 'pending', 'active', 'restricted'
+  stripeOnboardingComplete Boolean @default(false)
+  country               String?   // ISO country code for Stripe Connect
+  
+  // Stripe Customer fields (for making pledges/donations)
+  stripeCustomerId      String?   @unique
+  stripePaymentMethodId String?   // Default payment method
+  hasPaymentMethod      Boolean   @default(false)
+  
+  // Payment failure tracking
+  failedPayments        Int       @default(0)
+  lastFailedPayment     DateTime?
+  suspendedAt           DateTime?
+  suspensionReason      String?
+  
+  accounts              Account[]
+  sessions              Session[]
+  servers               Server[]
+  communities           Community[]
+  pledges               Pledge[]
+  activityLogs          ActivityLog[]
+  tickets               Ticket[]
+  ticketResponses       TicketResponse[]
+  assignedTickets       Ticket[] @relation("AssignedTickets")
+  serverBoosts          ServerBoost[]
+  favorites             UserFavorite[]
+  emailPreferences      UserEmailPreferences?
+  passwordResetTokens   PasswordResetToken[]
+  partnerStreamers      PartnerStreamer[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires   DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([token])
+}
+
+model Server {
+  id             String   @id @default(cuid())
+  name           String
+  description    String?
+  gameType       String   // e.g., "Minecraft", "Rust", "ARK", etc.
+  serverIp       String?
+  serverPort     Int?     // Server port number (e.g., 25565 for Minecraft, 27015 for CS2)
+  playerCount    Int?
+  cost           Float    @default(30) // Monthly server cost (e.g., $30/month)
+  withdrawalDay  Int      @default(15) // Day of month to charge pledgers (1-31)
+  imageUrl       String?
+  isActive       Boolean  @default(true) // Can accept pledges
+  status         String   @default("active") // 'active', 'inactive', 'archived'
+  region         String?  // Server region: "North America", "Europe", etc.
+  tags           String[] @default([]) // Game-specific tags: ["Survival", "PvP", etc.]
+  discordWebhook String?  // Optional Discord webhook URL for pledge notifications
+  isPrivate      Boolean  @default(false) // Private servers don't appear in public browser
+  isRealm        Boolean  @default(false) // Minecraft Realms don't use public IPs
+  
+  ownerId        String
+  owner          User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  
+  communityId    String?
+  community      Community? @relation(fields: [communityId], references: [id], onDelete: SetNull)
+  
+  pledges        Pledge[]
+  withdrawals    Withdrawal[]
+  activityLogs   ActivityLog[]
+  boosts         ServerBoost[]
+  favorites      UserFavorite[]
+  
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  @@index([ownerId])
+  @@index([status])
+  @@index([isActive])
+  @@index([gameType])
+  @@index([region])
+  @@index([communityId])
+}
+
+model Pledge {
+  id                String        @id @default(cuid())
+  amount            Float         // Pledged amount ($2-$30)
+  optimizedAmount   Float?        // Actual amount to be charged (after optimization)
+  status            PledgeStatus  @default(ACTIVE)
+  
+  // Relationships
+  userId            String
+  user              User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  serverId          String
+  server            Server        @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  lastChargedAt     DateTime?
+  nextChargeDate    DateTime?
+  
+  @@unique([userId, serverId]) // One pledge per user per server
+  @@index([userId])
+  @@index([serverId])
+  @@index([status])
+}
+
+model Withdrawal {
+  id                String   @id @default(cuid())
+  serverId          String
+  server            Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  
+  scheduledDate     DateTime // When pledgers will be charged
+  withdrawalDate    DateTime // When server owner receives funds
+  totalAmount       Float    // Total to be collected
+  collectedAmount   Float    @default(0) // Actually collected
+  platformFee       Float    // 2% fee
+  netAmount         Float    // Amount server owner receives
+  
+  status            String   @default("pending") // 'pending', 'processing', 'completed', 'failed'
+  
+  pledgeCount       Int      // Number of pledges involved
+  successfulCharges Int      @default(0)
+  failedCharges     Int      @default(0)
+  
+  stripeTransferId  String?  // Stripe transfer ID to server owner
+  
+  createdAt         DateTime @default(now())
+  completedAt       DateTime?
+  
+  @@index([serverId])
+  @@index([scheduledDate])
+  @@index([status])
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  serverId  String?
+  server    Server?  @relation(fields: [serverId], references: [id], onDelete: SetNull)
+  action    String   // e.g., "pledge_created", "server_created", etc.
+  metadata  Json?    // Additional data like amounts, server names, etc.
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([serverId])
+}
+
+model Ticket {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  category    String   // "bug_report", "feature_request", "support", "report_user_server", "other"
+  priority    String   // "low", "medium", "high", "urgent"
+  status      String   @default("open") // "open", "in_progress", "resolved", "closed"
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  assignedTo  String?  // Staff member who is handling the ticket
+  assignedUser User?   @relation("AssignedTickets", fields: [assignedTo], references: [id])
+  
+  responses   TicketResponse[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([category])
+  @@index([assignedTo])
+}
+
+model TicketResponse {
+  id        String   @id @default(cuid())
+  content   String
+  isStaff   Boolean  @default(false) // true if response is from staff
+  
+  ticketId  String
+  ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  
+  userId    String   // Who wrote the response
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+
+  @@index([ticketId])
+  @@index([userId])
+}
+
+model Community {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  about       String?  // Longer detailed about section
+  imageUrl    String?
+  bannerUrl   String?
+  heroBannerUrl String? // Hero section background banner
+  
+  // Social links
+  discordUrl  String?
+  websiteUrl  String?
+  twitterUrl  String?
+  youtubeUrl  String?
+  
+  // Gaming information
+  gameTypes   String[] @default([]) // Games the community plays: ["Minecraft", "Rust", etc.]
+  region      String?  // Primary region: "North America", "Europe", "Asia", etc.
+  tags        String[] @default([]) // Community tags: ["Casual", "Competitive", "PvE", etc.]
+  
+  // Community stats
+  memberCount Int      @default(0) // Approximate member count
+  isActive    Boolean  @default(true)
+  
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  
+  servers     Server[] // Servers linked to this community
+  favorites   UserFavorite[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([ownerId])
+  @@index([isActive])
+}
+
+model ServerBoost {
+  id          String   @id @default(cuid())
+  serverId    String
+  server      Server   @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  cost        Float    // $3.00 boost cost
+  startsAt    DateTime @default(now())
+  expiresAt   DateTime // startsAt + 24 hours
+  isActive    Boolean  @default(true)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([serverId])
+  @@index([userId])
+  @@index([expiresAt])
+  @@index([isActive])
+}
+
+model UserFavorite {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Either server or community (not both)
+  serverId    String?
+  server      Server?  @relation(fields: [serverId], references: [id], onDelete: Cascade)
+  
+  communityId String?
+  community   Community? @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  
+  createdAt   DateTime @default(now())
+  
+  @@unique([userId, serverId])
+  @@unique([userId, communityId])
+  @@index([userId])
+}
+
+model SiteSettings {
+  id        String   @id @default(cuid())
+  key       String   @unique // e.g., "theme"
+  value     String   // e.g., "default", "halloween", "christmas", etc.
+  updatedBy String?  // User ID who last updated
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
+
+model UserEmailPreferences {
+  id                    String @id @default(cuid())
+  userId                String @unique
+  user                  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Email notification preferences (all default to true)
+  paymentReminders      Boolean @default(true)
+  accountSuspension     Boolean @default(true)
+  ticketResponses       Boolean @default(true)
+  passwordReset         Boolean @default(true)
+  declinedPayments      Boolean @default(true)
+  receivedPayments      Boolean @default(true)
+  removedPledge         Boolean @default(true)
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  @@index([userId])
+}
+
+model PartnerStreamer {
+  id          String   @id @default(cuid())
+  username    String   @unique  // Twitch username (lowercase, no @)
+  displayName String              // Display name (e.g., "HRRY")
+  priority    Int      @default(0) // Higher = shown first (0-1000)
+  isActive    Boolean  @default(true) // Only active streamers shown
+  addedBy     String   // User ID who added this streamer
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  addedByUser User @relation(fields: [addedBy], references: [id], onDelete: Cascade)
+  
+  @@index([addedBy])
+  @@index([isActive, priority])
+}

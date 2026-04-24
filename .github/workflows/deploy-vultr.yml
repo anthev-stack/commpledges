@@ -1,0 +1,34 @@
+# Deploys to your Vultr VM on every push to `main`.
+# Required GitHub repo secrets:
+#   VULTR_HOST       — server IP or hostname
+#   VULTR_USER       — SSH user (e.g. root or deploy)
+#   VULTR_SSH_KEY    — private key (full PEM, including BEGIN/END lines)
+#   VULTR_DEPLOY_PATH — absolute path to the app on the server (e.g. /var/www/commpledges)
+# Optional:
+#   VULTR_SSH_PORT   — if not 22
+
+name: Deploy to Vultr
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: deploy-vultr
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VULTR_HOST }}
+          username: ${{ secrets.VULTR_USER }}
+          key: ${{ secrets.VULTR_SSH_KEY }}
+          port: 22
+          script_stop: true
+          script: |
+            export APP_DIR="${{ secrets.VULTR_DEPLOY_PATH }}"
+            bash "$APP_DIR/scripts/server-deploy.sh"

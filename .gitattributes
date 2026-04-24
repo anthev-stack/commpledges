@@ -1,0 +1,2 @@
+# Scripts run on Linux (Vultr); force LF so bash is not broken by CRLF.
+*.sh text eol=lf

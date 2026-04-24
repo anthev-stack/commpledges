@@ -1,0 +1,1048 @@
+@import "tailwindcss";
+
+:root {
+  /* Dark theme as default */
+  --background: #1a1a2e;
+  --foreground: #ffffff;
+  
+  /* Theme colors - dark theme defaults */
+  --color-primary: #10b981;
+  --color-secondary: #059669;
+  --color-accent: #34d399;
+  --color-background: #1a1a2e;
+  --color-surface: #16213e;
+  --color-text: #ffffff;
+  --color-text-secondary: #cccccc;
+  
+  /* Parallax effects */
+  --stars-parallax: 0px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Dark Theme as Default */
+html, body {
+  background: linear-gradient(to bottom, #16213e 0%, #1a2342 30%, #1d2a47 60%, #1f3348 85%, #1a3d35 100%) !important;
+  color: #ffffff !important;
+  min-height: 100vh !important;
+}
+
+body {
+  background: linear-gradient(to bottom, #16213e 0%, #1a2342 30%, #1d2a47 60%, #1f3348 85%, #1a3d35 100%) !important;
+  color: #ffffff !important;
+  min-height: 100vh !important;
+}
+
+body .bg-white {
+  background-color: #16213e !important;
+}
+
+body .bg-gray-50,
+body .bg-gray-100 {
+  background-color: #16213e !important;
+}
+
+body .bg-gray-200 {
+  background-color: #1e2749 !important;
+}
+
+body .text-gray-900,
+body .text-gray-800,
+body .text-gray-700 {
+  color: #ffffff !important;
+}
+
+body .text-gray-600 {
+  color: #cccccc !important;
+}
+
+body .text-gray-500,
+body .text-gray-400 {
+  color: #a0a0a0 !important;
+}
+
+body .bg-indigo-600 {
+  background-color: #10b981 !important;
+}
+
+body .hover\:bg-indigo-700:hover {
+  background-color: #059669 !important;
+}
+
+body .text-indigo-600 {
+  color: #10b981 !important;
+}
+
+body .border-indigo-600 {
+  border-color: #10b981 !important;
+}
+
+body .border-gray-200,
+body .border-gray-300 {
+  border-color: #1e2749 !important;
+}
+
+body .border-gray-400 {
+  border-color: #374151 !important;
+}
+
+/* Input styling for dark theme */
+body input[type="text"],
+body input[type="email"],
+body input[type="password"],
+body input[type="url"],
+body textarea,
+body select {
+  background-color: #16213e !important;
+  border-color: #1e2749 !important;
+  color: #ffffff !important;
+}
+
+body input::placeholder,
+body textarea::placeholder {
+  color: #a0a0a0 !important;
+}
+
+body input:focus,
+body textarea:focus,
+body select:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Card styling */
+body .bg-white,
+body .shadow-sm,
+body .shadow {
+  background-color: #16213e !important;
+  border: 1px solid #1e2749 !important;
+}
+
+/* Navigation styling */
+body nav {
+  background-color: #1a1a2e !important;
+  border-bottom: 1px solid #1e2749 !important;
+}
+
+/* ===== HALLOWEEN THEME ===== */
+body.theme-halloween {
+  background: linear-gradient(to bottom, #16213e 0%, #1a1f3a 30%, #1f1e45 60%, #2a1f4a 85%, #4c1d95 100%) !important;
+  color: #ffffff !important;
+}
+
+body.theme-halloween .bg-white,
+body.theme-halloween .bg-gray-50,
+body.theme-halloween .bg-gray-100 {
+  background-color: #16213e !important;
+}
+
+body.theme-halloween .bg-gray-200 {
+  background-color: #1e2749 !important;
+}
+
+body.theme-halloween .text-gray-900,
+body.theme-halloween .text-gray-800,
+body.theme-halloween .text-gray-700 {
+  color: #ffffff !important;
+}
+
+body.theme-halloween .text-gray-600 {
+  color: #cccccc !important;
+}
+
+body.theme-halloween .text-gray-500,
+body.theme-halloween .text-gray-400 {
+  color: #a0a0a0 !important;
+}
+
+/* Halloween - Emerald to Purple */
+body.theme-halloween .bg-emerald-500,
+body.theme-halloween .bg-emerald-600,
+body.theme-halloween .bg-emerald-400,
+body.theme-halloween .bg-indigo-600 {
+  background-color: #a855f7 !important;
+}
+
+body.theme-halloween .bg-emerald-700,
+body.theme-halloween .bg-emerald-800,
+body.theme-halloween .bg-emerald-900,
+body.theme-halloween .hover\:bg-emerald-700:hover,
+body.theme-halloween .hover\:bg-indigo-700:hover {
+  background-color: #9333ea !important;
+}
+
+body.theme-halloween .text-emerald-600,
+body.theme-halloween .text-emerald-500,
+body.theme-halloween .text-emerald-400,
+body.theme-halloween .text-indigo-600 {
+  color: #a855f7 !important;
+}
+
+body.theme-halloween .text-emerald-100,
+body.theme-halloween .text-emerald-200 {
+  color: #e9d5ff !important;
+}
+
+body.theme-halloween .border-emerald-600,
+body.theme-halloween .border-emerald-500,
+body.theme-halloween .border-indigo-600 {
+  border-color: #a855f7 !important;
+}
+
+body.theme-halloween .border-emerald-500\/20 {
+  border-color: rgba(168, 85, 247, 0.2) !important;
+}
+
+body.theme-halloween .bg-emerald-500\/20 {
+  background-color: rgba(168, 85, 247, 0.2) !important;
+}
+
+body.theme-halloween .hover\:border-emerald-500:hover {
+  border-color: #a855f7 !important;
+}
+
+body.theme-halloween .hover\:text-emerald-400:hover {
+  color: #c084fc !important;
+}
+
+/* Ensure Lucide icons properly inherit currentColor in Halloween theme */
+body.theme-halloween .text-emerald-400 svg,
+body.theme-halloween .text-emerald-500 svg,
+body.theme-halloween .text-emerald-600 svg {
+  color: inherit !important;
+}
+
+body.theme-halloween .text-emerald-400 svg *,
+body.theme-halloween .text-emerald-500 svg *,
+body.theme-halloween .text-emerald-600 svg * {
+  stroke: currentColor !important;
+  fill: currentColor !important;
+}
+
+
+body.theme-halloween input:focus,
+body.theme-halloween textarea:focus,
+body.theme-halloween select:focus {
+  border-color: #a855f7 !important;
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1) !important;
+}
+
+body.theme-halloween .bg-slate-800\/50 {
+  background-color: rgba(22, 33, 62, 0.5) !important;
+}
+
+body.theme-halloween .border-slate-700\/50 {
+  border-color: rgba(30, 39, 73, 0.5) !important;
+}
+
+body.theme-halloween .border-gray-200,
+body.theme-halloween .border-gray-300 {
+  border-color: #1e2749 !important;
+}
+
+body.theme-halloween .border-gray-400 {
+  border-color: #374151 !important;
+}
+
+body.theme-halloween input[type="text"],
+body.theme-halloween input[type="email"],
+body.theme-halloween input[type="password"],
+body.theme-halloween input[type="url"],
+body.theme-halloween textarea,
+body.theme-halloween select {
+  background-color: #16213e !important;
+  border-color: #1e2749 !important;
+  color: #ffffff !important;
+}
+
+body.theme-halloween input::placeholder,
+body.theme-halloween textarea::placeholder {
+  color: #a0a0a0 !important;
+}
+
+body.theme-halloween .shadow-sm,
+body.theme-halloween .shadow {
+  border: 1px solid #1e2749 !important;
+}
+
+body.theme-halloween nav {
+  background-color: #1a1a2e !important;
+  border-bottom: 1px solid #1e2749 !important;
+}
+
+/* Halloween hero section - change emerald gradient to purple */
+body.theme-halloween .bg-gradient-to-br.from-emerald-600 {
+  background: linear-gradient(to bottom right, #a855f7, #9333ea, #7c3aed) !important;
+}
+
+body.theme-halloween .bg-emerald-400 {
+  background-color: #c084fc !important;
+}
+
+body.theme-halloween .text-emerald-900 {
+  color: #4c1d95 !important;
+}
+
+body.theme-halloween .text-emerald-100 {
+  color: #e9d5ff !important;
+}
+
+body.theme-halloween .text-emerald-600 {
+  color: #a855f7 !important;
+}
+
+body.theme-halloween .hover\:bg-emerald-50:hover {
+  background-color: #faf5ff !important;
+}
+
+body.theme-halloween .bg-emerald-900 {
+  background-color: #581c87 !important;
+}
+
+body.theme-halloween .hover\:bg-emerald-800:hover {
+  background-color: #6b21a8 !important;
+}
+
+/* Wave styling for all themes - add dark blue border and make it overlay */
+body svg path[fill="#191f3a"] {
+  stroke: #191f3a !important;
+  stroke-width: 3px !important;
+  stroke-linejoin: round !important;
+}
+
+/* New Year wave color - darker blue for better contrast */
+body.theme-newyear svg path[fill="#191f3a"] {
+  fill: #121d36 !important;
+  stroke: #121d36 !important;
+}
+
+/* Ensure New Year wave stroke matches fill color - only for wave elements */
+body.theme-newyear svg path[fill="#191f3a"] {
+  stroke: #121d36 !important;
+  stroke-width: 3px !important;
+  stroke-linejoin: round !important;
+}
+
+/* Halloween wave color - darker purple for better contrast */
+body.theme-halloween svg path[fill="#191f3a"] {
+  fill: #191f3a !important;
+  stroke: #191f3a !important;
+}
+
+/* Ensure Halloween wave stroke matches fill color - only for wave elements */
+body.theme-halloween svg path[fill="#191f3a"] {
+  stroke: #191f3a !important;
+  stroke-width: 3px !important;
+  stroke-linejoin: round !important;
+}
+
+/* Make the wave container slightly overlay the next section for all themes */
+body .absolute.bottom-0 {
+  margin-bottom: -3px !important;
+}
+
+/* Hero section button styling - Browse Servers uses theme accent color */
+body .bg-emerald-600 {
+  background-color: var(--color-primary) !important;
+}
+
+body .hover\:bg-emerald-700:hover {
+  background-color: var(--color-secondary) !important;
+}
+
+/* ===== CHRISTMAS THEME ===== */
+/* Christmas theme - Blue accents for cold winter feeling */
+body.theme-christmas .bg-emerald-500,
+body.theme-christmas .bg-emerald-600,
+body.theme-christmas .bg-emerald-400,
+body.theme-christmas .bg-indigo-600 {
+  background-color: #2563eb !important;
+}
+
+body.theme-christmas .bg-emerald-700,
+body.theme-christmas .bg-emerald-800,
+body.theme-christmas .bg-emerald-900,
+body.theme-christmas .hover\:bg-emerald-700:hover,
+body.theme-christmas .hover\:bg-indigo-700:hover {
+  background-color: #1d4ed8 !important;
+}
+
+body.theme-christmas .text-emerald-600,
+body.theme-christmas .text-emerald-500,
+body.theme-christmas .text-emerald-400,
+body.theme-christmas .text-indigo-600 {
+  color: #2563eb !important;
+}
+
+body.theme-christmas .text-emerald-100,
+body.theme-christmas .text-emerald-200 {
+  color: #dbeafe !important;
+}
+
+body.theme-christmas .border-emerald-600,
+body.theme-christmas .border-emerald-500,
+body.theme-christmas .border-indigo-600 {
+  border-color: #2563eb !important;
+}
+
+body.theme-christmas .border-emerald-500\/20 {
+  border-color: rgba(37, 99, 235, 0.2) !important;
+}
+
+body.theme-christmas .bg-emerald-500\/20 {
+  background-color: rgba(37, 99, 235, 0.2) !important;
+}
+
+body.theme-christmas .hover\:border-emerald-500:hover {
+  border-color: #2563eb !important;
+}
+
+body.theme-christmas .hover\:text-emerald-400:hover {
+  color: #3b82f6 !important;
+}
+
+body.theme-christmas input:focus,
+body.theme-christmas textarea:focus,
+body.theme-christmas select:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Christmas hero section - blue gradient */
+body.theme-christmas .bg-gradient-to-br.from-emerald-600 {
+  background: linear-gradient(to bottom right, #2563eb, #1d4ed8, #1e40af) !important;
+}
+
+/* New Year hero section - purple gradient for night feeling */
+body.theme-newyear .bg-gradient-to-br.from-emerald-600 {
+  background: linear-gradient(to bottom right, #8b5cf6, #7c3aed, #6d28d9) !important;
+}
+
+/* Christmas body gradient - dark blue to blue theme */
+body.theme-christmas {
+  background: linear-gradient(to bottom, #16213e 0%, #1a1f3a 30%, #1d2649 60%, #1e3a5c 85%, #1e3a8a 100%) !important;
+  color: #ffffff !important;
+}
+
+body.theme-christmas .bg-white,
+body.theme-christmas .bg-gray-50,
+body.theme-christmas .bg-gray-100 {
+  background-color: #16213e !important;
+}
+
+body.theme-christmas .bg-gray-200 {
+  background-color: #1e2749 !important;
+}
+
+body.theme-christmas .text-gray-900,
+body.theme-christmas .text-gray-800,
+body.theme-christmas .text-gray-700 {
+  color: #ffffff !important;
+}
+
+body.theme-christmas .text-gray-600 {
+  color: #cccccc !important;
+}
+
+body.theme-christmas .text-gray-500,
+body.theme-christmas .text-gray-400 {
+  color: #a0a0a0 !important;
+}
+
+body.theme-christmas .bg-emerald-400 {
+  background-color: #3b82f6 !important;
+}
+
+body.theme-christmas .text-emerald-900 {
+  color: #1e3a8a !important;
+}
+
+body.theme-christmas .text-emerald-100 {
+  color: #dbeafe !important;
+}
+
+body.theme-christmas .text-emerald-600 {
+  color: #2563eb !important;
+}
+
+body.theme-christmas .hover\:bg-emerald-50:hover {
+  background-color: #eff6ff !important;
+}
+
+body.theme-christmas .bg-emerald-900 {
+  background-color: #1e3a8a !important;
+}
+
+body.theme-christmas .hover\:bg-emerald-800:hover {
+  background-color: #1d4ed8 !important;
+}
+
+body.theme-christmas .bg-slate-800\/50 {
+  background-color: rgba(22, 33, 62, 0.5) !important;
+}
+
+/* Christmas lights - hidden by default, shown only for Christmas theme */
+.theme-christmas-only {
+  display: none;
+}
+
+body.theme-christmas .theme-christmas-only {
+  display: block;
+}
+
+/* New Year countdown only for New Year theme */
+.theme-newyear-only {
+  display: none;
+}
+
+body.theme-newyear .theme-newyear-only {
+  display: block;
+}
+
+/* Add gradient overlay to countdown section to fade stars into distance */
+body.theme-newyear .theme-newyear-only {
+  position: relative;
+}
+
+/* Ensure countdown content appears above the gradient */
+body.theme-newyear .theme-newyear-only > * {
+  position: relative;
+  z-index: 2;
+}
+
+body.theme-newyear .theme-newyear-only::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 250px;
+  background: linear-gradient(to bottom, #121d36 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ===== BIRTHDAY THEME ===== */
+body.theme-birthday {
+  background: linear-gradient(to bottom, #fdf4ff 0%, #fdf4ff 50%, #fae8ff 80%, #f3e8ff 100%) !important;
+  color: #701a75 !important;
+}
+
+body.theme-birthday .bg-white,
+body.theme-birthday .bg-gray-50,
+body.theme-birthday .bg-gray-100 {
+  background-color: #ffffff !important;
+}
+
+body.theme-birthday .bg-gray-200 {
+  background-color: #f3f4f6 !important;
+}
+
+body.theme-birthday .text-gray-900,
+body.theme-birthday .text-gray-800,
+body.theme-birthday .text-gray-700 {
+  color: #701a75 !important;
+}
+
+body.theme-birthday .text-gray-600 {
+  color: #a21caf !important;
+}
+
+body.theme-birthday .text-gray-500,
+body.theme-birthday .text-gray-400 {
+  color: #c084fc !important;
+}
+
+/* Birthday - Emerald to Pink */
+body.theme-birthday .bg-emerald-500,
+body.theme-birthday .bg-emerald-600,
+body.theme-birthday .bg-emerald-400,
+body.theme-birthday .bg-indigo-600 {
+  background-color: #ec4899 !important;
+}
+
+body.theme-birthday .bg-emerald-700,
+body.theme-birthday .bg-emerald-800,
+body.theme-birthday .bg-emerald-900,
+body.theme-birthday .hover\:bg-emerald-700:hover,
+body.theme-birthday .hover\:bg-indigo-700:hover {
+  background-color: #db2777 !important;
+}
+
+body.theme-birthday .text-emerald-600,
+body.theme-birthday .text-emerald-500,
+body.theme-birthday .text-emerald-400,
+body.theme-birthday .text-indigo-600 {
+  color: #ec4899 !important;
+}
+
+body.theme-birthday .text-emerald-100,
+body.theme-birthday .text-emerald-200 {
+  color: #fce7f3 !important;
+}
+
+body.theme-birthday .border-emerald-600,
+body.theme-birthday .border-emerald-500,
+body.theme-birthday .border-indigo-600 {
+  border-color: #ec4899 !important;
+}
+
+body.theme-birthday .border-emerald-500\/20 {
+  border-color: rgba(236, 72, 153, 0.2) !important;
+}
+
+body.theme-birthday .bg-emerald-500\/20 {
+  background-color: rgba(236, 72, 153, 0.2) !important;
+}
+
+body.theme-birthday .hover\:border-emerald-500:hover {
+  border-color: #ec4899 !important;
+}
+
+body.theme-birthday .hover\:text-emerald-400:hover {
+  color: #f472b6 !important;
+}
+
+body.theme-birthday input:focus,
+body.theme-birthday textarea:focus,
+body.theme-birthday select:focus {
+  border-color: #ec4899 !important;
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1) !important;
+}
+
+body.theme-birthday .bg-slate-800\/50 {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+body.theme-birthday .border-slate-700\/50 {
+  border-color: rgba(236, 72, 153, 0.3) !important;
+}
+
+/* ===== NEW YEAR THEME ===== */
+/* New Year theme - dark night sky with stars */
+body.theme-newyear {
+  background: linear-gradient(to bottom, #0f1419 0%, #16213e 30%, #0a1128 80%, #05080f 100%) !important;
+  color: #ffffff !important;
+}
+
+/* Stars background - using simple box-shadow approach for maximum compatibility */
+body.theme-newyear::before {
+  content: '';
+  position: fixed;
+  top: -100px;
+  left: 0;
+  width: 2px;
+  height: 2px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.9;
+  background: white;
+  border-radius: 50%;
+  transform: translateY(var(--stars-parallax, 0px));
+  transition: transform 0.1s ease-out;
+  /* Create stars using box-shadow for maximum browser compatibility */
+  box-shadow:
+    /* Stars extending into wave area for seamless flow */
+    50px 50px 0 0 white,
+    150px 80px 0 0 white,
+    300px 60px 0 0 white,
+    450px 70px 0 0 white,
+    600px 90px 0 0 white,
+    750px 55px 0 0 white,
+    900px 75px 0 0 white,
+    1100px 65px 0 0 white,
+    1300px 85px 0 0 white,
+    /* Test star - very visible at top left */
+    10px 10px 0 0 white,
+    /* Big Dipper (top left) */
+    80px 150px 0 0 white,
+    120px 120px 0 0 white,
+    160px 100px 0 0 white,
+    200px 110px 0 0 white,
+    180px 180px 0 0 white,
+    140px 200px 0 0 white,
+    100px 220px 0 0 white,
+    /* Orion's Belt (center) */
+    480px 400px 0 0 white,
+    500px 420px 0 0 white,
+    520px 440px 0 0 white,
+    /* Orion constellation (around belt) */
+    460px 300px 0 0 white,
+    540px 320px 0 0 white,
+    450px 520px 0 0 white,
+    550px 540px 0 0 white,
+    /* Cassiopeia (W shape - top right) */
+    750px 180px 0 0 white,
+    780px 140px 0 0 white,
+    810px 160px 0 0 white,
+    840px 120px 0 0 white,
+    870px 150px 0 0 white,
+    /* Little Dipper (right side) */
+    850px 350px 0 0 white,
+    880px 380px 0 0 white,
+    900px 420px 0 0 white,
+    880px 460px 0 0 white,
+    850px 480px 0 0 white,
+    820px 460px 0 0 white,
+    800px 440px 0 0 white,
+    /* Scattered stars across entire page */
+    50px 350px 0 0 white,
+    150px 450px 0 0 white,
+    220px 280px 0 0 white,
+    280px 500px 0 0 white,
+    320px 250px 0 0 white,
+    350px 600px 0 0 white,
+    380px 150px 0 0 white,
+    420px 700px 0 0 white,
+    550px 200px 0 0 white,
+    580px 650px 0 0 white,
+    620px 280px 0 0 white,
+    650px 550px 0 0 white,
+    680px 750px 0 0 white,
+    720px 350px 0 0 white,
+    250px 650px 0 0 white,
+    180px 720px 0 0 white,
+    120px 550px 0 0 white,
+    80px 800px 0 0 white,
+    300px 820px 0 0 white,
+    400px 880px 0 0 white,
+    520px 780px 0 0 white,
+    600px 850px 0 0 white,
+    700px 900px 0 0 white,
+    780px 820px 0 0 white,
+    880px 700px 0 0 white,
+    920px 600px 0 0 white,
+    950px 500px 0 0 white,
+    930px 250px 0 0 white,
+    30px 500px 0 0 white,
+    250px 380px 0 0 white,
+    450px 80px 0 0 white,
+    620px 120px 0 0 white,
+    700px 50px 0 0 white,
+    500px 920px 0 0 white,
+    150px 880px 0 0 white,
+    820px 920px 0 0 white,
+    350px 30px 0 0 white,
+    880px 80px 0 0 white,
+    50px 80px 0 0 white,
+    980px 450px 0 0 white,
+    20px 650px 0 0 white,
+    480px 580px 0 0 white,
+    320px 480px 0 0 white,
+    670px 420px 0 0 white,
+    220px 780px 0 0 white,
+    770px 680px 0 0 white,
+    580px 320px 0 0 white,
+    380px 680px 0 0 white,
+    120px 380px 0 0 white,
+    850px 550px 0 0 white,
+    280px 920px 0 0 white,
+    730px 220px 0 0 white,
+    420px 950px 0 0 white,
+    950px 780px 0 0 white,
+    /* Additional stars for fullness */
+    70px 250px 0 0 white,
+    230px 420px 0 0 white,
+    370px 180px 0 0 white,
+    510px 680px 0 0 white,
+    630px 150px 0 0 white,
+    770px 450px 0 0 white,
+    130px 580px 0 0 white,
+    270px 720px 0 0 white,
+    410px 850px 0 0 white,
+    570px 320px 0 0 white,
+    710px 780px 0 0 white,
+    870px 220px 0 0 white,
+    90px 680px 0 0 white,
+    330px 350px 0 0 white,
+    470px 880px 0 0 white,
+    610px 620px 0 0 white,
+    750px 520px 0 0 white,
+    890px 380px 0 0 white,
+    170px 480px 0 0 white,
+    310px 820px 0 0 white,
+    490px 250px 0 0 white,
+    670px 750px 0 0 white,
+    830px 120px 0 0 white,
+    110px 750px 0 0 white,
+    290px 580px 0 0 white,
+    430px 420px 0 0 white,
+    590px 880px 0 0 white,
+    730px 280px 0 0 white,
+    910px 650px 0 0 white;
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.6));
+}
+
+body.theme-newyear .bg-white,
+body.theme-newyear .bg-gray-50,
+body.theme-newyear .bg-gray-100 {
+  background-color: #16213e !important;
+}
+
+body.theme-newyear .bg-gray-200 {
+  background-color: #1a2847 !important;
+}
+
+body.theme-newyear .text-gray-900,
+body.theme-newyear .text-gray-800,
+body.theme-newyear .text-gray-700 {
+  color: #ffffff !important;
+}
+
+body.theme-newyear .text-gray-600 {
+  color: #cccccc !important;
+}
+
+body.theme-newyear .text-gray-500,
+body.theme-newyear .text-gray-400 {
+  color: #a0a0a0 !important;
+}
+
+/* New Year theme - emerald to purple color overrides */
+body.theme-newyear .text-emerald-600,
+body.theme-newyear .text-emerald-500,
+body.theme-newyear .text-emerald-400,
+body.theme-newyear .text-indigo-600 {
+  color: #a78bfa !important;
+}
+
+body.theme-newyear .text-emerald-100,
+body.theme-newyear .text-emerald-200 {
+  color: #e9d5ff !important;
+}
+
+/* Ensure icon containers use purple background for New Year theme */
+body.theme-newyear .bg-emerald-500\/20 {
+  background-color: rgba(167, 139, 250, 0.2) !important;
+}
+
+/* Ensure Lucide icons properly inherit currentColor in New Year theme */
+body.theme-newyear .text-emerald-400 svg,
+body.theme-newyear .text-emerald-500 svg,
+body.theme-newyear .text-emerald-600 svg {
+  color: inherit !important;
+}
+
+body.theme-newyear .text-emerald-400 svg *,
+body.theme-newyear .text-emerald-500 svg *,
+body.theme-newyear .text-emerald-600 svg * {
+  stroke: currentColor !important;
+  fill: currentColor !important;
+}
+
+
+body.theme-newyear .bg-emerald-600 {
+  background-color: #8b5cf6 !important;
+}
+
+body.theme-newyear .hover\:bg-emerald-700:hover {
+  background-color: #7c3aed !important;
+}
+
+body.theme-newyear .bg-emerald-700 {
+  background-color: #7c3aed !important;
+}
+
+body.theme-newyear .bg-emerald-800 {
+  background-color: #6d28d9 !important;
+}
+
+body.theme-newyear .hover\:bg-emerald-800:hover {
+  background-color: #5b21b6 !important;
+}
+
+body.theme-newyear .bg-slate-800\/50 {
+  background-color: rgba(26, 40, 71, 0.8) !important;
+}
+
+/* Default and Dark theme overrides for consistency */
+body.theme-dark .bg-slate-800\/50,
+body.theme-default .bg-slate-800\/50 {
+  background-color: rgba(22, 33, 62, 0.5) !important;
+}
+
+/* Ensure proper layering for New Year theme */
+body.theme-newyear nav {
+  position: relative;
+  z-index: 50;
+}
+
+body.theme-newyear .relative.bg-gradient-to-br {
+  position: relative;
+  z-index: 40;
+}
+
+body.theme-newyear .absolute.inset-0 {
+  z-index: 45;
+}
+
+/* Ensure New Year wave is above hero overlays */
+body.theme-newyear .absolute.bottom-0 {
+  z-index: 50;
+}
+
+/* Remove border from hero section for New Year theme */
+body.theme-newyear .border-b-4 {
+  border-bottom: none !important;
+}
+
+/* Bring features section above the gradient overlay */
+body.theme-newyear section.max-w-7xl {
+  position: relative;
+  z-index: 10;
+}
+
+body.theme-newyear .border-slate-700\/50 {
+  border-color: rgba(26, 40, 71, 0.5) !important;
+}
+
+/* CSS-based Firework Animation (inspired by https://alvaromontoro.com/blog/68002/creating-a-firework-effect-with-css) */
+.firework-css {
+  --firework-color: #ff0000;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.5vmin;
+  aspect-ratio: 1;
+  pointer-events: none;
+  z-index: 1;
+  background:
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 50% 0%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 100% 50%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 50% 100%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 0% 50%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 80% 90%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 95% 90%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 10% 60%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 31% 80%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 80% 10%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 90% 23%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 45% 20%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 13% 24%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 70% 75%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 60% 95%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 25% 95%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 12% 80%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 15% 34%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 85% 45%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 65% 30%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 90% 70%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 28% 7%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 43% 93%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 73% 60%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 36% 42%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 58% 12%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 42% 65%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 19% 47%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 77% 32%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 52% 85%,
+    radial-gradient(circle, var(--firework-color) 0.5vmin, #0000 0) 95% 15%;
+  background-size: 0.5vmin 0.5vmin;
+  background-repeat: no-repeat;
+  animation: firework-css 2.5s infinite;
+}
+
+.firework-css::before,
+.firework-css::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  background-size: inherit;
+  background-repeat: inherit;
+}
+
+.firework-css::before {
+  transform: rotate(25deg) !important;
+}
+
+.firework-css::after {
+  transform: rotate(-37deg) !important;
+}
+
+@keyframes firework-css {
+  0% {
+    transform: translate(-50%, 60vh);
+    width: 0.5vmin;
+    opacity: 1;
+  }
+  50% {
+    width: 0.5vmin;
+    opacity: 1;
+  }
+  100% {
+    width: 45vmin;
+    opacity: 0;
+  }
+}
+
+/* New Year countdown styling */
+.newyear-countdown {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: white;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.countdown-item {
+  display: inline-block;
+  margin: 0 1rem;
+  text-align: center;
+}
+
+.countdown-number {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  display: block;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.countdown-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  opacity: 0.9;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+/* Happy New Years message with flashing animation */
+.newyear-message {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: white;
+  text-align: center;
+  font-size: 4rem;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 60px rgba(255, 255, 255, 0.6);
+  animation: flash-text 1s ease-in-out infinite;
+}
+
+@keyframes flash-text {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.8), 0 0 60px rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    opacity: 0.3;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+}
