@@ -1,7 +1,14 @@
 import { Resend } from 'resend'
 import { EMAIL_CONFIG, getSenderString } from './email-config'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+let resendClient: Resend | null = null
+
+function getResend(): Resend | null {
+  const key = process.env.RESEND_API_KEY
+  if (!key) return null
+  if (!resendClient) resendClient = new Resend(key)
+  return resendClient
+}
 
 export interface EmailTemplate {
   subject: string
@@ -246,6 +253,12 @@ export const emailTemplates = {
 // Main email sending function
 export async function sendEmail(options: EmailOptions) {
   try {
+    const resend = getResend()
+    if (!resend) {
+      console.error('Email sending skipped: RESEND_API_KEY is not set')
+      return { success: false, error: new Error('RESEND_API_KEY is not configured') }
+    }
+
     const { data, error } = await resend.emails.send({
       from: options.from || getSenderString('noreply'),
       to: options.to,
